@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!--================Home Banner Area =================-->
+	<section class="home_banner_area">
+		<div class="overlay"></div>
+		<div class="banner_inner d-flex align-items-center">
+			<div class="container">
+				<div class="banner_content row">
+					<div class="offset-lg-2 col-lg-8">
+						<h3>Fashion for
+							<br />Upcoming Winter</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+							aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+						<a class="white_bg_btn" href="#">View Collection</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Home Banner Area =================-->
+
+	<!--================Feature Product Area =================-->
+	<section class="feature_product_area section_gap">
+		<div class="main_box">
+			<div class="container-fluid">
+            {% regroup products by category as products_by_category %}
+            {% for c in products_by_category %}
+
+
+				<div class="row">
+						<h2>{{ c.grouper }}</h2>
+					</div>
+					<div class="main_title">
+				</div>
+				<div class="row">
+                    {% for product in c.list %}
+					<div class="col col1">
+						<div class="f_p_item">
+							<div class="f_p_img">
+                                <a href="{% url 'products:detail' product.category product.subcategory product.id %}"><img class="img-fluid" src="{{ product.image.url }}" alt=""></a>
+
+							</div>
+							<a href="#">
+								<h4>{{ product.name }}</h4>
+							</a>
+                            <h5>Rs. {{ product.price }}</h5>
+                            <a href=" {% url 'products:detail' product.category product.subcategory product.id %}" ><button type="submit" class="btn btn-primary mt-10">Add to cart</button></a>
+
+						</div>
+					</div>
+                    {% endfor %}
+				</div>
+
+				<div class="row mb-lg-5">
+					<nav class="cat_page mx-auto" aria-label="Page navigation example">
+						<ul class="pagination">
+							<li class="page-item">
+								<a class="page-link" href="#">
+									<i class="fa fa-chevron-left" aria-hidden="true"></i>
+								</a>
+							</li>
+							<li class="page-item active">
+								<a class="page-link" href="#">01</a>
+							</li>
+							<li class="page-item">
+								<a class="page-link" href="#">02</a>
+							</li>
+							<li class="page-item">
+								<a class="page-link" href="#">03</a>
+							</li>
+							<li class="page-item blank">
+								<a class="page-link" href="#">...</a>
+							</li>
+							<li class="page-item">
+								<a class="page-link" href="#">09</a>
+							</li>
+							<li class="page-item">
+								<a class="page-link" href="#">
+									<i class="fa fa-chevron-right" aria-hidden="true"></i>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+            {% endfor %}
+			</div>
+		</div>
+	</section>
+	<!--================End Feature Product Area =================-->
+{% endblock %}
